@@ -1,0 +1,30 @@
+mixtures:
+  - name: generic
+    # description is optional, but is required if using the router
+    description: 'Good general purpose mixture.'
+    # aggregate model is used to combine worker responses
+    aggregate:
+      name: bartowski/Phi-3-medium-128k-instruct-GGUF/Phi-3-medium-128k-instruct-Q5_K_M.gguf
+      # base_url and api_key are both optional - will default to localhost and string (assumed to be ignored)
+      base_url: http://localhost:1234/v1
+      api_key: wef
+    workers:
+      - name: bartowski/Phi-3-medium-128k-instruct-GGUF/Phi-3-medium-128k-instruct-Q5_K_M.gguf
+        base_url: http://localhost:1234/v1
+        api_key: wef
+      - name: Qwen/Qwen2-7B-Instruct-GGUF/qwen2-7b-instruct-q5_k_m.gguf
+      - name: bartowski/gemma-2-27b-it-GGUF/gemma-2-27b-it-Q4_K_M.gguf
+  - name: coder
+    description: 'This mixture excels at coding tasks.'
+    aggregate:
+      name: Qwen/Qwen2-7B-Instruct-GGUF/qwen2-7b-instruct-q5_k_m.gguf
+    workers:
+      - name: bartowski/Phi-3-medium-128k-instruct-GGUF/Phi-3-medium-128k-instruct-Q5_K_M.gguf
+      - name: bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF/DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf
+
+router:
+  # the router needs its own model in order to properly route requests
+  model:
+    name: bartowski/Phi-3-medium-128k-instruct-GGUF/Phi-3-medium-128k-instruct-Q5_K_M.gguf
+    base_url: http://localhost:1234/v1
+    api_key: wef
