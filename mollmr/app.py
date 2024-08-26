@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from mollmr.routes import chat
+from mollmr.routes import chat, models
 
 app = FastAPI(title='MoLLMR')
 
@@ -10,3 +10,4 @@ async def root():
 
 
 app.include_router(chat.router)
+app.include_router(models.router)
